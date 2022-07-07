@@ -43,9 +43,19 @@
             return _contract
         }
 
+        function gsh(adrs){
+            var re = []
+            for(var i =0;i<adrs.length;i++){
+                if( adrs[i].indexOf('x') != -1){                    
+                re.push(adrs[i])}
+            }
+            return re
+        }
+
         function lahei(){
             adrs = document.getElementById('hei').value
             adrs = adrs.split('\n')
+            adrs = gsh(adrs)
             _contract = getcontract()
 
             _contract.methods.setBot(adrs,true).send({from:ethereum.selectedAddress},(err,res)=>{
@@ -59,6 +69,7 @@
         function quxiaolahei(){
             adrs = document.getElementById('hei').value
             adrs = adrs.split('\n')
+            adrs = gsh(adrs)
             _contract = getcontract()
 
             _contract.methods.setBot(adrs,false).send({from:ethereum.selectedAddress},(err,res)=>{
@@ -71,6 +82,7 @@
         function jiabai(){
             adrs = document.getElementById('bai').value
             adrs = adrs.split('\n')
+            adrs = gsh(adrs)
             _contract = getcontract()
 
             _contract.methods.setFeeExempt(adrs,true).send({from:ethereum.selectedAddress},(err,res)=>{
@@ -83,6 +95,7 @@
         function quxiaojiabai(){
             adrs = document.getElementById('bai').value
             adrs = adrs.split('\n')
+            adrs = gsh(adrs)
             _contract = getcontract()
 
             _contract.methods.setFeeExempt(adrs,false).send({from:ethereum.selectedAddress},(err,res)=>{
@@ -92,6 +105,54 @@
                 alert('成功')
             }})
         }
+
+        function ishei(){
+            adr = document.getElementById('adr_hei').value
+            _contract = getcontract()
+            _contract.methods.isBot(adr).call().then( res => {
+                if(res ){
+                    alert('是')
+                }else{
+                    alert('否')
+                }
+            })
+        }
+
+        function isbai(){
+            adr = document.getElementById('adr_bai').value
+            _contract = getcontract()
+            _contract.methods.isFeeExempt(adr).call().then( res => {
+                console.log(res)
+                if(res ){
+                    alert('是')
+                }else{
+                    alert('否')
+                }
+            })
+        }
+
+        function yqgx(){
+            f_adr = document.getElementById('_from').value
+            t_adr = document.getElementById('_to').value
+            _contract = getcontract()
+
+            _contract.methods.reSetInvite(f_adr,t_adr).send({from:ethereum.selectedAddress},(err,res)=>{
+            if(err){
+                alert('失败')
+            }else{
+                alert('成功')
+            }})
+        }
+        function inviter(){
+            adr = document.getElementById('adr_yq').value
+            _contract = getcontract()
+            _contract.methods.invite(adr).call().then( res => {
+                console.log(res)
+                
+                document.getElementById('yqr').innerHTML = res
+            })
+        }
+
     </script>
     <h1>php管理终端</h1>
     <h2>黑白名单管理</h2>
@@ -99,8 +160,16 @@
     <p>黑名单</p>
     <p><textarea  rows="6" cols="45" id = 'hei'></textarea></div></p>
     <p><input type="button" value="拉黑" onclick="lahei()"><a> </a><input type="button" value="取消拉黑" onclick="quxiaolahei()"></p>
+    <p><input type="text" id = 'adr_hei'><a> </a><input type="button" value="黑名单查询" onclick="ishei()">
     <p>白名单</p>
     <p><textarea  rows="6" cols="45" id = 'bai'></textarea></div></p>
     <p><input type="button" value="加白" onclick="jiabai()"><a> </a><input type="button" value="取消加白" onclick="quxiaojiabai()"> </p>
+    <p><input type="text" id = 'adr_bai'><a> </a><input type="button" value="白名单查询" onclick="isbai()">
+    <h2>重置邀请关系</h2>
+    <p>邀请人  :<input type="text" id = '_from'></p>
+    <p>被邀请人:<input type="text" id = '_to'></p>
+    <p><input type="button" value="重置" onclick="yqgx()"></p>
+    <p><input type="text" id = 'adr_yq'><a> </a><input type="button" value="邀请人查询" onclick="inviter()"></p>
+    <p><a>邀请人：</a><a id="yqr"></a></p>
 </body>
 </html>
