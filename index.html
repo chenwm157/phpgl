@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>php管理</title>
+</head>
+<body>
+    <script src = 'web3/web3.min.js'></script>
+    <script>
+     
+        function connet(){
+        // var mate = window.ethereum;
+        if(typeof window.ethereum === 'undefined'){
+            alert('未安装钱包')
+        }
+        try{
+            window.ethereum.enable()
+        }catch(err){
+            alert('未通过')
+        }
+        if(!window.ethereum.isConnected()){
+            document.getElementById('_connet').value = "链接"
+        }else{
+            window.web3 = new Web3(window.ethereum);
+            // console.log(ethereum.selectedAddress)
+            document.getElementById('_connet').value = ethereum.selectedAddress.slice(0,6)+ '....'  +ethereum.selectedAddress.slice(-6)
+            document.getElementById('_connet').onclick = ""
+        }} 
+
+        window.addEventListener("load",function(){
+            if(window.ethereum){
+                connet()
+            }
+        })
+
+        function getcontract(){
+            abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"DividendsIndex","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"IndexToDividends","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PPKBuyBack","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"SRT","outputs":[{"internalType":"contract swapRecipient","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"appointFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"burnFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"canSetInvite","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_liquidityFee","type":"uint256"},{"internalType":"uint256","name":"_burnFee","type":"uint256"},{"internalType":"uint256","name":"_reflectionFee","type":"uint256"},{"internalType":"uint256","name":"_marketingFee","type":"uint256"},{"internalType":"uint256","name":"_totalSellFee","type":"uint256"},{"internalType":"uint256","name":"_totalBuyFee","type":"uint256"}],"name":"changeFee","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"changeMarket","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"bool","name":"bl","type":"bool"}],"name":"changeMod","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"changePPKBuyBack","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"feeDenominator","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"index","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"invite","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"inviteFees","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"isAppointFee","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"isBot","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"isDividendExempt","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"isFeeExempt","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"isInviter","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"isPair","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"liquidityFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"market","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"marketingFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pair1","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pair2","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pair3","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"pair4","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"}],"name":"reSetInvite","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"reflectionFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"}],"name":"rmAppointFee","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"rmFee","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"},{"internalType":"uint256","name":"f0","type":"uint256"},{"internalType":"uint256","name":"f1","type":"uint256"},{"internalType":"uint256","name":"f2","type":"uint256"},{"internalType":"uint256","name":"f3","type":"uint256"},{"internalType":"uint256","name":"f4","type":"uint256"},{"internalType":"uint256","name":"f5","type":"uint256"},{"internalType":"uint256","name":"f6","type":"uint256"},{"internalType":"uint256","name":"f7","type":"uint256"},{"internalType":"uint256","name":"f8","type":"uint256"},{"internalType":"uint256","name":"f9","type":"uint256"}],"name":"setAppointFee","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"adrs","type":"address[]"},{"internalType":"bool","name":"bl","type":"bool"}],"name":"setBot","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"adrs","type":"address[]"},{"internalType":"bool","name":"bl","type":"bool"}],"name":"setFeeExempt","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"f0","type":"uint256"},{"internalType":"uint256","name":"f1","type":"uint256"},{"internalType":"uint256","name":"f2","type":"uint256"},{"internalType":"uint256","name":"f3","type":"uint256"},{"internalType":"uint256","name":"f4","type":"uint256"},{"internalType":"uint256","name":"f5","type":"uint256"},{"internalType":"uint256","name":"f6","type":"uint256"},{"internalType":"uint256","name":"f7","type":"uint256"},{"internalType":"uint256","name":"f8","type":"uint256"},{"internalType":"uint256","name":"f9","type":"uint256"}],"name":"setInviteFees","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"},{"internalType":"bool","name":"bl","type":"bool"}],"name":"setIsDividendExempt","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address[]","name":"adrs","type":"address[]"},{"internalType":"bool","name":"bl","type":"bool"}],"name":"setIsInviter","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"adr","type":"address"},{"internalType":"bool","name":"bl","type":"bool"}],"name":"setIsPair","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"swapThreshold","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalBuyFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalIndex","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSellFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"whiteMod","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"}]
+            address = "0x49849B283348af4423D6750EfF475a759A7338EC"
+    
+            _contract = new web3.eth.Contract(abi,address)
+            return _contract
+        }
+
+        function lahei(){
+            adrs = document.getElementById('hei').value
+            adrs = adrs.split('\n')
+            _contract = getcontract()
+
+            _contract.methods.setBot(adrs,true).send({from:ethereum.selectedAddress},(err,res)=>{
+            if(err){
+                alert('失败')
+            }else{
+                alert('成功')
+            }})
+            
+        }
+        function quxiaolahei(){
+            adrs = document.getElementById('hei').value
+            adrs = adrs.split('\n')
+            _contract = getcontract()
+
+            _contract.methods.setBot(adrs,false).send({from:ethereum.selectedAddress},(err,res)=>{
+            if(err){
+                alert('失败')
+            }else{
+                alert('成功')
+            }})
+        }
+        function jiabai(){
+            adrs = document.getElementById('bai').value
+            adrs = adrs.split('\n')
+            _contract = getcontract()
+
+            _contract.methods.setFeeExempt(adrs,true).send({from:ethereum.selectedAddress},(err,res)=>{
+            if(err){
+                alert('失败')
+            }else{
+                alert('成功')
+            }})
+        }
+        function quxiaojiabai(){
+            adrs = document.getElementById('bai').value
+            adrs = adrs.split('\n')
+            _contract = getcontract()
+
+            _contract.methods.setFeeExempt(adrs,false).send({from:ethereum.selectedAddress},(err,res)=>{
+            if(err){
+                alert('失败')
+            }else{
+                alert('成功')
+            }})
+        }
+    </script>
+    <h1>php管理终端</h1>
+    <h2>黑白名单管理</h2>
+    <input value="链接" type="button" onclick="connet()" id="_connet"> </br>
+    <p>黑名单</p>
+    <p><textarea  rows="6" cols="45" id = 'hei'></textarea></div></p>
+    <p><input type="button" value="拉黑" onclick="lahei()"><a> </a><input type="button" value="取消拉黑" onclick="quxiaolahei()"></p>
+    <p>白名单</p>
+    <p><textarea  rows="6" cols="45" id = 'bai'></textarea></div></p>
+    <p><input type="button" value="加白" onclick="jiabai()"><a> </a><input type="button" value="取消加白" onclick="quxiaojiabai()"> </p>
+</body>
+</html>
