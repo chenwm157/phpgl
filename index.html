@@ -11,7 +11,9 @@
     <script>
      
         m_account = ''
+		m_xcs = true
         function connet(){
+		m_xcs = false
         // var mate = window.ethereum;
         if(typeof window.ethereum === 'undefined'){
             alert('未安装钱包')
@@ -23,18 +25,20 @@
         }
         if(!window.ethereum.isConnected()){
             document.getElementById('_connet').value = "链接"
+			m_xcs = true
         }else{
             window.web3 = new Web3(window.ethereum);
             // console.log(ethereum.selectedAddress)
             m_account = ethereum.selectedAddress;
             document.getElementById('_connet').value = ethereum.selectedAddress.slice(0,6)+ '....'  +ethereum.selectedAddress.slice(-6)
             document.getElementById('_connet').onclick = ""
+            m_xcs = true
         }} 
 
         setInterval(
             function(){
                 if(window.ethereum){
-                if(ethereum.selectedAddress != m_account){
+                if(m_xcs && ethereum.selectedAddress != m_account){
                 connet()}}
             },1000
         )
