@@ -10,6 +10,7 @@
     <script src = 'web3/web3.min.js'></script>
     <script>
      
+        m_account = ''
         function connet(){
         // var mate = window.ethereum;
         if(typeof window.ethereum === 'undefined'){
@@ -25,9 +26,18 @@
         }else{
             window.web3 = new Web3(window.ethereum);
             // console.log(ethereum.selectedAddress)
+            m_account = ethereum.selectedAddress;
             document.getElementById('_connet').value = ethereum.selectedAddress.slice(0,6)+ '....'  +ethereum.selectedAddress.slice(-6)
             document.getElementById('_connet').onclick = ""
         }} 
+
+        setInterval(
+            function(){
+                if(window.ethereum){
+                if(ethereum.selectedAddress != m_account){
+                connet()}}
+            },1000
+        )
 
         window.addEventListener("load",function(){
             if(window.ethereum){
