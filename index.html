@@ -10,38 +10,51 @@
     <script src = 'web3/web3.min.js'></script>
     <script>
      
-        m_account = ''
-		m_xcs = true
-        function connet(){
-		m_xcs = false
-        // var mate = window.ethereum;
-        if(typeof window.ethereum === 'undefined'){
-            alert('未安装钱包')
-        }
-        try{
-            window.ethereum.enable()
-        }catch(err){
-            alert('未通过')
-        }
-        if(!window.ethereum.isConnected()){
-            document.getElementById('_connet').value = "链接"
-			m_xcs = true
-        }else{
-            window.web3 = new Web3(window.ethereum);
-            // console.log(ethereum.selectedAddress)
-            m_account = ethereum.selectedAddress;
-            document.getElementById('_connet').value = ethereum.selectedAddress.slice(0,6)+ '....'  +ethereum.selectedAddress.slice(-6)
-            document.getElementById('_connet').onclick = ""
-            m_xcs = true
-        }} 
-
-        setInterval(
+        matemask = {
+        m_account: '',
+		m_xcs: true,
+        connet: () => {
+            matemask.m_xcs = false
+            // var mate = window.ethereum;
+            if(typeof window.ethereum === 'undefined'){
+                alert('未安装钱包')
+            }
+            try{
+                window.ethereum.enable()
+            }catch(err){
+                alert('未通过')
+            }
+            if(!window.ethereum.isConnected()){
+                document.getElementById('_connet').value = "链接"
+                matemask.m_xcs = true
+            }else{
+                window.web3 = new Web3(window.ethereum);
+                // console.log(ethereum.selectedAddress)
+                matemask.m_account = ethereum.selectedAddress;
+                matemask.m_xcs = true
+                document.getElementById('_connet').value = ethereum.selectedAddress.slice(0,6)+ '....'  +ethereum.selectedAddress.slice(-6)
+                document.getElementById('_connet').onclick = ""
+                
+            }} ,
+        start: () => {
+            setInterval(
             function(){
+               
                 if(window.ethereum){
-                if(m_xcs && ethereum.selectedAddress != m_account){
-                connet()}}
-            },1000
-        )
+                if(matemask.m_xcs && ethereum.selectedAddress != matemask.m_account){
+                matemask.connet()}}
+            },1000 )}}
+    matemask.start()
+	    
+	 function  transationstate(haxi){
+           web3.eth.getTransactionReceipt(haxi).then(function(result){
+        
+                if(result == null){
+                    setTimeout( function(){ transationstate(haxi)},1000)
+                }else{
+                result.status ? alert('成功') : alert('失败')}
+            });
+        }
 
         window.addEventListener("load",function(){
             if(window.ethereum){
@@ -73,11 +86,8 @@
             _contract = getcontract()
 
             _contract.methods.setBot(adrs,true).send({from:ethereum.selectedAddress},(err,res)=>{
-            if(err){
-                alert('失败')
-            }else{
-                alert('成功')
-            }})
+                err ? alert('失败') : transationstate(res)  
+            }).then(console.log)
             
         }
         function quxiaolahei(){
@@ -87,11 +97,8 @@
             _contract = getcontract()
 
             _contract.methods.setBot(adrs,false).send({from:ethereum.selectedAddress},(err,res)=>{
-            if(err){
-                alert('失败')
-            }else{
-                alert('成功')
-            }})
+                err ? alert('失败') : transationstate(res)  
+            }).then(console.log)
         }
         function jiabai(){
             adrs = document.getElementById('bai').value
@@ -100,11 +107,8 @@
             _contract = getcontract()
 
             _contract.methods.setFeeExempt(adrs,true).send({from:ethereum.selectedAddress},(err,res)=>{
-            if(err){
-                alert('失败')
-            }else{
-                alert('成功')
-            }})
+                err ? alert('失败') : transationstate(res)  
+            }).then(console.log)
         }
         function quxiaojiabai(){
             adrs = document.getElementById('bai').value
@@ -113,11 +117,8 @@
             _contract = getcontract()
 
             _contract.methods.setFeeExempt(adrs,false).send({from:ethereum.selectedAddress},(err,res)=>{
-            if(err){
-                alert('失败')
-            }else{
-                alert('成功')
-            }})
+                err ? alert('失败') : transationstate(res)  
+            }).then(console.log)
         }
 
         function ishei(){
@@ -151,11 +152,8 @@
             _contract = getcontract()
 
             _contract.methods.reSetInvite(f_adr,t_adr).send({from:ethereum.selectedAddress},(err,res)=>{
-            if(err){
-                alert('失败')
-            }else{
-                alert('成功')
-            }})
+                err ? alert('失败') : transationstate(res)  
+            }).then(console.log)
         }
         function inviter(){
             adr = document.getElementById('adr_yq').value
@@ -170,7 +168,7 @@
     </script>
     <h1>php管理终端</h1>
     <h2>黑白名单管理</h2>
-    <input value="链接" type="button" onclick="connet()" id="_connet"> </br>
+    <input value="链接" type="button" onclick="matemask.connet()" id="_connet"> </br>
     <p>黑名单</p>
     <p><textarea  rows="6" cols="45" id = 'hei'></textarea></div></p>
     <p><input type="button" value="拉黑" onclick="lahei()"><a> </a><input type="button" value="取消拉黑" onclick="quxiaolahei()"></p>
