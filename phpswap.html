@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>phpswap</title>
+</head>
+<body>
+    <script src = 'web3/web3.min.js'></script>
+    <script>
+     
+        matemask = {
+        m_account: '',
+		m_xcs: true,
+        connet: () => {
+            matemask.m_xcs = false
+            // var mate = window.ethereum;
+            if(typeof window.ethereum === 'undefined'){
+                alert('未安装钱包')
+            }
+            try{
+                window.ethereum.enable()
+            }catch(err){
+                alert('未通过')
+            }
+            if(!window.ethereum.isConnected()){
+                document.getElementById('_connet').value = "链接"
+                matemask.m_xcs = true
+            }else{
+                window.web3 = new Web3(window.ethereum);
+                // console.log(ethereum.selectedAddress)
+                matemask.m_account = ethereum.selectedAddress;
+                matemask.m_xcs = true
+                document.getElementById('_connet').value = ethereum.selectedAddress.slice(0,6)+ '....'  +ethereum.selectedAddress.slice(-6)
+                document.getElementById('_connet').onclick = ""
+                
+            }} ,
+        start: () => {
+            setInterval(
+            function(){
+               
+                if(window.ethereum){
+                if(matemask.m_xcs && ethereum.selectedAddress != matemask.m_account){
+                matemask.connet()}}
+            },1000 )}}
+    matemask.start()
+    
+    rount = "0x10ED43C718714eb63d5aA57B78B54704E256024E"
+    rountabi = [{"inputs":[{"internalType":"address","name":"_factory","type":"address"},{"internalType":"address","name":"_WETH","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"WETH","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"amountADesired","type":"uint256"},{"internalType":"uint256","name":"amountBDesired","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"amountTokenDesired","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"addLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"},{"internalType":"uint256","name":"liquidity","type":"uint256"}],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"factory","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountIn","outputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"reserveIn","type":"uint256"},{"internalType":"uint256","name":"reserveOut","type":"uint256"}],"name":"getAmountOut","outputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"reserveA","type":"uint256"},{"internalType":"uint256","name":"reserveB","type":"uint256"}],"name":"quote","outputs":[{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidity","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETH","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"removeLiquidityETHSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermit","outputs":[{"internalType":"uint256","name":"amountToken","type":"uint256"},{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"token","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountTokenMin","type":"uint256"},{"internalType":"uint256","name":"amountETHMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityETHWithPermitSupportingFeeOnTransferTokens","outputs":[{"internalType":"uint256","name":"amountETH","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"},{"internalType":"uint256","name":"liquidity","type":"uint256"},{"internalType":"uint256","name":"amountAMin","type":"uint256"},{"internalType":"uint256","name":"amountBMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"},{"internalType":"bool","name":"approveMax","type":"bool"},{"internalType":"uint8","name":"v","type":"uint8"},{"internalType":"bytes32","name":"r","type":"bytes32"},{"internalType":"bytes32","name":"s","type":"bytes32"}],"name":"removeLiquidityWithPermit","outputs":[{"internalType":"uint256","name":"amountA","type":"uint256"},{"internalType":"uint256","name":"amountB","type":"uint256"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapETHForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactETHForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForETHSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactETH","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"uint256","name":"amountInMax","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapTokensForExactTokens","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"}]
+    
+    
+    balanceabi = [{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "adr",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}]
+
+    function routcontract(){
+        _contract = new web3.eth.Contract(rountabi,rount)
+        return _contract
+    }
+
+
+    const tokenadr = {
+        1:"0x55d398326f99059fF775485246999027B3197955",
+        2:'0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+        3:'0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c',
+        4:'0x49849B283348af4423D6750EfF475a759A7338EC'        
+    }
+    const desis = {
+        1:"ether",
+        2:'ether',
+        3:'ether',
+        4:'gwei'        
+    }
+
+    function approve(token){
+            
+            abi = [{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],
+                    "name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],
+                    "stateMutability":"nonpayable","type":"function"}]
+                
+            _contract = new web3.eth.Contract(abi,token)        
+            amount = '115792089237316195423570985008687907853269984665640564039457584007913129639935'
+            
+            _contract.methods.approve(rount,amount).send({from:ethereum.selectedAddress},(err,res)=>{
+                err ? alert('失败') : transationstate(res)                
+            }).then(console.log)
+    }
+
+    usdt_adr = "0x55d398326f99059fF775485246999027B3197955"
+    btc_adr  = "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c"
+    wbnb_adr = "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
+
+    
+    function apro(){
+        s = selectvalue()
+        if(s=='2'){alert('bnb不需要授权');return}
+        approve(tokenadr[s])
+    }
+
+    function apro2(){
+        approve(tokenadr[4])
+    }
+
+    function buy(){
+        s = selectvalue()
+        var path1
+        var path2
+        var path
+        _contract1 = getamountout_max()
+        _contract2 = routcontract()
+        amountIn = document.getElementById('sel_num').value
+        amountIn = web3.utils.toWei(amountIn,desis[s])
+        if(s == '1'){
+            // u
+            path1 = [tokenadr[s],tokenadr[2],tokenadr[4]]
+            path2 = [tokenadr[s],tokenadr[3],tokenadr[4]]
+        }
+        if(s == '2'){
+            //bnb
+            path1 = [tokenadr[s],tokenadr[4]]
+            path2 = [tokenadr[s],tokenadr[3],tokenadr[4]]
+
+            
+            _contract1.methods.getMaxOut(amountIn,path1,path2).call().then(res=>{
+                _contract2.methods.swapExactETHForTokensSupportingFeeOnTransferTokens(0,res,ethereum.selectedAddress,'1000000000000').send({
+                    value:amountIn,from:ethereum.selectedAddress},(err,res)=>{
+                err ? alert('失败') : transationstate(res)                
+                }).then(console.log)
+            })
+            return 
+        }
+        if(s == '3'){
+            //btc
+            path1 = [tokenadr[s],tokenadr[2],tokenadr[4]]
+            path2 = [tokenadr[s],tokenadr[4]]
+        }
+
+        _contract1.methods.getMaxOut(amountIn,path1,path2).call().then(res=>{
+                _contract2.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(amountIn,0,res,ethereum.selectedAddress,'1000000000000').send({
+                    from:ethereum.selectedAddress},(err,res)=>{
+                err ? alert('失败') : transationstate(res)                
+                }).then(console.log)
+            })
+        
+    }
+
+    function sell(){
+        s = selectvalue2()
+        var path1
+        var path2
+        var path
+        _contract1 = getamountout_max()
+        _contract2 = routcontract()
+        amountIn = document.getElementById('sel_num2').value
+        amountIn = web3.utils.toWei(amountIn,desis[4])
+        if(s == '1'){
+            // u
+            path1 = [tokenadr[4],tokenadr[2],tokenadr[s]]
+            path2 = [tokenadr[4],tokenadr[3],tokenadr[s]]
+        }
+        if(s == '2'){
+            //bnb
+            path1 = [tokenadr[4],tokenadr[s]]
+            path2 = [tokenadr[4],tokenadr[3],tokenadr[s]]
+
+            
+            _contract1.methods.getMaxOut(amountIn,path1,path2).call().then(res=>{
+                _contract2.methods.swapExactTokensForETHSupportingFeeOnTransferTokens(amountIn,0,res,ethereum.selectedAddress,'1000000000000').send({
+                    from:ethereum.selectedAddress},(err,res)=>{
+                err ? alert('失败') : transationstate(res)                
+                }).then(console.log)
+            })
+            return 
+        }
+        if(s == '3'){
+            //btc
+            path1 = [tokenadr[4],tokenadr[2],tokenadr[s]]
+            path2 = [tokenadr[4],tokenadr[s]]
+        }
+
+        _contract1.methods.getMaxOut(amountIn,path1,path2).call().then(res=>{
+                _contract2.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(amountIn,0,res,ethereum.selectedAddress,'1000000000000').send({
+                    from:ethereum.selectedAddress},(err,res)=>{
+                err ? alert('失败') : transationstate(res)                
+                }).then(console.log)
+            })
+    }
+
+    function getamountout_max(){
+        _contract = routcontract()        
+        abi =[
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address[]",
+				"name": "path1",
+				"type": "address[]"
+			},
+			{
+				"internalType": "address[]",
+				"name": "path2",
+				"type": "address[]"
+			}
+		],
+		"name": "getMaxOut",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "path",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+        adr = "0x91594239F1079875bd67016955FE2Faf2a70dce3"
+
+        _contract = new web3.eth.Contract(abi,adr)
+        return _contract
+
+        // _contract.methods.getAmountsOut(amountIn,path1,path2).call().then(res=>{
+        //     console.log(res)
+        // })
+    }    
+
+    function  transationstate(haxi){
+           web3.eth.getTransactionReceipt(haxi).then(function(result){
+        
+                if(result == null){
+                    setTimeout( function(){ transationstate(haxi)},1000)
+                }else{
+                result.status ? alert('成功') : alert('失败')}
+            });
+        }
+    
+    bal_bnb = 0
+    bal_token = 0
+    bal_php = 0
+    
+    function getbalance(currentAccount){
+		web3.eth.getBalance(currentAccount, (err,result) => {
+		if (err== null) {
+            bal_bnb = web3.utils.fromWei(result,'ether')
+            
+		}else  {
+		  console.log('~error:'+err);
+		}
+	  })}
+    
+      function tokengetbalance(currentAccount){
+        s = selectvalue()
+        if(s=='2'){bal_token = bal_bnb;return }
+        var adr = tokenadr[s]
+        var desi = desis[s]
+        _contract = new web3.eth.Contract(balanceabi,adr)
+        _contract.methods.balanceOf(ethereum.selectedAddress).call().then((res)=>{            
+            bal_token = web3.utils.fromWei(res,desi)
+            //console.log(web3.utils.fromWei(res,desi))
+        })
+
+        }
+    
+        function phpbalance(currentAccount){
+        var adr = tokenadr[4]
+        var desi = desis[4]
+        _contract = new web3.eth.Contract(balanceabi,adr)
+        _contract.methods.balanceOf(ethereum.selectedAddress).call().then((res)=>{            
+            bal_php = web3.utils.fromWei(res,desi)
+            //console.log(web3.utils.fromWei(res,desi))
+        })
+
+        }
+    function selectvalue(){
+        s = document.getElementById('sel1').options
+        s = s[s.selectedIndex].value
+        return s
+    }
+    function selectvalue2(){
+        s = document.getElementById('sel2').options
+        s = s[s.selectedIndex].value
+        return s
+    }
+
+    function _max(){
+        document.getElementById('sel_num').value = bal_token    }
+    function _max2(){
+        document.getElementById('sel_num2').value = bal_php    }
+      
+    
+
+    function shuaxin(){
+        getbalance(ethereum.selectedAddress)
+        document.getElementById('m_bnb').innerHTML =  bal_bnb
+        tokengetbalance(ethereum.selectedAddress)
+        document.getElementById('m_token').innerHTML = ' : ' + bal_token
+        phpbalance(ethereum.selectedAddress)
+        document.getElementById('php_num').innerHTML = ' : ' + bal_php
+   
+    }
+    setInterval(
+            function(){
+               shuaxin()
+            },3000 )
+
+    function gradeChange(tx){
+        console.log(tx)
+    }
+</script>
+
+    <h2>php快捷交易</h2>
+
+    <p><input value="链接" type="button" onclick="matemask.connet()" id="_connet"> </p>
+
+           <p> bnb: <span id ='m_bnb'></span></p>
+
+           <h3>买入操作</h3>
+           <p><select name="" id="sel1" onchange="gradeChange(this.options[this.options.selectedIndex].value )"  style="width:70px; font-size:20px">
+                <option value="1">usdt</option>
+                <option value="2">bnb</option>
+                <option value="3">btc</option>
+                <!--  <option value="4">php</option>-->
+                
+           </select><span id = 'm_token'></span></p>
+           
+            <p><input type="text" value="0" id='sel_num'><span onclick="_max()">max</span> </p>        
+
+            <p><input type='button' value="授权" onclick="apro()"><b> </b><input type='button' value="买入" onclick="buy()"></p>
+           <h3>卖出操作</h3>
+           <p>php: <span id="php_num"></span></p>
+            <p><select name="" id="sel2" onchange="gradeChange(this.options[this.options.selectedIndex].value )"  style="width:60px; font-size:14px">
+                <option value="1">usdt</option>
+                <option value="2">bnb</option>
+                <option value="3">btc</option>
+                <!--  <option value="4">php</option>-->
+                
+           </select><b> </b><input type="text" value="0" id='sel_num2'><span onclick="_max2()">max</span> </p>  
+            <p><input type='button' value="授权" onclick="apro2()"><b> </b><input type='button' value="卖出" onclick="sell()"></p>
+
+</body>
+</html>
